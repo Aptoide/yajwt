@@ -1,0 +1,31 @@
+repos:
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.7.2
+    hooks:
+    -   id: pyupgrade
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: check-toml
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        language_version: python3
+-   repo: local
+    hooks:
+      - id: prospector
+        name: prospector
+        entry: pipenv run prospector --summary-only
+        language: system
+        types: [python]
+-   repo: local
+    hooks:
+      - id: run-tests   # set verbose: true to see unittests details
+        name: yajwt-unittests
+        language: system
+        entry: bash -c "pipenv run python -m tests.run_tests"
+        types: [python]
