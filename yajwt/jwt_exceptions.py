@@ -1,0 +1,2 @@
+class JwtKeyNotFound(Exception):
+    pass
