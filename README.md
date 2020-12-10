@@ -2,7 +2,7 @@
 **yajwt** is Yet Another [JWT wrapper](https://pyjwt.readthedocs.io/en/stable/) for Python.
 
 ## Public/private keys
-yajwt supports public/private keys management. To accomplish that, one should create a 
+yajwt supports public/private keys management. To accomplish that, one should create a
 .JSON file with the following schema:
 ```json
 {
@@ -17,9 +17,9 @@ yajwt supports public/private keys management. To accomplish that, one should cr
 }
 ```
 
-`team` is used to identify .JSON file. 
+`team` is used to identify .JSON file.
 
-`payload` can be changed according to your specifications, however `iss` is needed to 
+`payload` can be changed according to your specifications, however `iss` is needed to
 verify incoming tokens.
 
 `algorithm` can also be changed according to your specifications.

@@ -3,4 +3,3 @@ dataclasses==0.8
 dataclasses-json==0.5.2
 PyJWT==1.7.1
 requests==2.25.0
-
