@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pyjwt = "*"
-cryptography = "*"
-requests = "*"
-dataclasses = "*"
-dataclasses_json = "*"
+PyJWT = "==1.7.1"
+cryptography = "==3.3.1"
+requests = "==2.25.0"
+dataclasses = "==0.8"
+dataclasses-json = "*"
 
 [dev-packages]
 
