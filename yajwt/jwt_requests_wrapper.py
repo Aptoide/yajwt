@@ -1,4 +1,5 @@
 import logging
+from http import HTTPStatus
 from time import time
 
 import requests
@@ -10,7 +11,6 @@ from yajwt.jwt_keys_manager import JwtKeysManager
 from yajwt.jwt_response_mapper import (
     JwtResponseMapper,
     JwtResponse,
-    JwtResponseStatus,
 )
 
 
@@ -26,6 +26,7 @@ class JwtRequestsWrapper:
         self.__jwt_response_mapper = jwt_response_mapper
         self.__logger = logging.getLogger("JwtRequestsWrapper")
 
+    # pylint: disable=too-many-arguments
     def get(
         self,
         url: str,
@@ -45,8 +46,9 @@ class JwtRequestsWrapper:
 
             return self.__jwt_response_mapper.map(response)
         except (requests.exceptions.RequestException, JwtKeyNotFound) as e:
-            return JwtResponse(JwtResponseStatus.EXCEPTION, exception=e)
+            return JwtResponse(HTTPStatus.INTERNAL_SERVER_ERROR, exception=e)
 
+    # pylint: disable=too-many-arguments
     def post(
         self,
         url: str,
@@ -72,12 +74,12 @@ class JwtRequestsWrapper:
 
             return self.__jwt_response_mapper.map(response)
         except (requests.exceptions.RequestException, JwtKeyNotFound) as e:
-            return JwtResponse(JwtResponseStatus.EXCEPTION, exception=e)
+            return JwtResponse(HTTPStatus.INTERNAL_SERVER_ERROR, exception=e)
 
     def __build_jwt_header(self, team: str) -> dict:
         jwt_key = self.__jwt_keys_manager.get_private_key(team)
         token = self.__encode(jwt_key).decode("utf-8")
-        self.__logger.info(f"Using JWT token: '{token}'")
+        self.__logger.info("Using JWT token: '%s'", token)
         return {"Authorization": "Bearer " + token}
 
     def __encode(self, jwt_key: JwtKey) -> bytes:

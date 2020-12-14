@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: prospector
         name: prospector
-        entry: pipenv run prospector --summary-only
+        entry: pipenv run prospector
         language: system
         types: [python]
 -   repo: local

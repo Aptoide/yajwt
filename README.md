@@ -35,7 +35,7 @@ jwt_keys_manager = JwtKeysManager(keys_path)
 jwt_requests = JwtRequestsWrapper(jwt_keys_manager, JwtResponseMapper(), TOKEN_TTL)
 
 response = jwt_requests.get("https://example.com", "testing-user")
-if response.status == JwtResponseStatus.OK:
+if response.status == HTTPStatus.OK:
     print(response)
 ```
 

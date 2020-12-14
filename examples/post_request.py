@@ -1,10 +1,10 @@
 import logging
 import os
+from http import HTTPStatus
 
 from yajwt.jwt_keys_manager import JwtKeysManager
 from yajwt.jwt_requests_wrapper import JwtRequestsWrapper
 from yajwt.jwt_response_mapper import JwtResponseMapper
-from yajwt.entities.jwt_response_status import JwtResponseStatus
 
 TOKEN_TTL = 60 * 10  # we recommend 10 min
 
@@ -19,6 +19,6 @@ if __name__ == "__main__":
     # make the request
     data = {"param1": 1, "param2": 2}
     response = jwt_requests.post("https://example.com", "testing-user", data=data)
-    if response.status == JwtResponseStatus.OK:
+    if response.status == HTTPStatus.OK:
         print(response.json)
     print(response)
