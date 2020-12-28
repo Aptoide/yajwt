@@ -22,7 +22,8 @@ class JwtResponseMapper:
         status = self.__get_status(response)
         if response.content is None:
             return JwtResponse(status)
-        if "application/json" in response.headers.get("Content-Type"):
+        content_type = response.headers.get("Content-Type")
+        if content_type is not None and "application/json" in content_type:
             return JwtResponse(status, json=response.json())
         return JwtResponse(status, content=response.content)
 
