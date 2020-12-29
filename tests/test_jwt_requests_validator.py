@@ -28,3 +28,11 @@ class TestJwtRequestsValidator(unittest.TestCase):
     def test_validate_expired_token(self):
         jwt_token = self.jwt_validator.validate(self.EXPIRED_TOKEN)
         self.assertEqual(jwt_token.valid, False)
+
+    def test_validate_specific_user_expired_token(self):
+        jwt_token = self.jwt_validator.validate_user("testing-user", self.EXPIRED_TOKEN)
+        self.assertEqual(jwt_token.valid, False)
+
+    def test_validate_invalid_user_expired_token(self):
+        jwt_token = self.jwt_validator.validate_user("ko-user", self.EXPIRED_TOKEN)
+        self.assertEqual(jwt_token.valid, False)

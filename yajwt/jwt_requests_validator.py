@@ -21,12 +21,7 @@ class JwtRequestsValidator:
             self.__logger.error("Unable to get team_name from JWT token.")
             return JwtToken(False)
 
-        try:
-            jwt_key = self.__jwt_keys_manager.get_public_key(team_name)
-            return self.__validate(jwt_token, jwt_key)
-        except JwtKeyNotFound as e:
-            self.__logger.error(str(e))
-            return JwtToken(False)
+        return self.validate_user(jwt_token, team_name)
 
     def __get_payload(self, jwt_token: str) -> dict:
         return jwt.decode(jwt_token, verify=False)
@@ -36,5 +31,13 @@ class JwtRequestsValidator:
             jwt.decode(jwt_token, jwt_key.key, algorithms=jwt_key.algorithm)
             return JwtToken(True, self.__get_payload(jwt_token))
         except (ExpiredSignatureError, InvalidSignatureError) as e:
-            self.__logger.error(f"Unable to verify {jwt_key.team} token: {str(e)}")
+            self.__logger.error("Unable to verify %s token %s", jwt_key.team, str(e))
+            return JwtToken(False)
+
+    def validate_user(self, jwt_token: str, team_name: str) -> JwtToken:
+        try:
+            jwt_key = self.__jwt_keys_manager.get_public_key(team_name)
+            return self.__validate(jwt_token, jwt_key)
+        except JwtKeyNotFound as e:
+            self.__logger.error(str(e))
             return JwtToken(False)
