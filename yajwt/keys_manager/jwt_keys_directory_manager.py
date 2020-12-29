@@ -2,11 +2,12 @@ import json
 import os
 from typing import List
 
-from yajwt.jwt_exceptions import JwtKeyNotFound
 from yajwt.entities.jwt_key import JwtKey, JwtKeyType
+from yajwt.jwt_exceptions import JwtKeyNotFound
+from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 
 
-class JwtKeysManager:
+class JwtKeysDirectoryManager(JwtKeysManager):
     def __init__(self, keys_path: os.path):
         self.__keys_path = keys_path
         self.__jwt_keys: List[JwtKey] = []

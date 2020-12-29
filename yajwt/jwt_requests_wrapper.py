@@ -7,7 +7,7 @@ from jwt import encode
 
 from yajwt.jwt_exceptions import JwtKeyNotFound
 from yajwt.entities.jwt_key import JwtKey
-from yajwt.jwt_keys_manager import JwtKeysManager
+from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 from yajwt.jwt_response_mapper import (
     JwtResponseMapper,
     JwtResponse,

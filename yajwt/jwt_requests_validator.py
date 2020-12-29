@@ -4,7 +4,7 @@ import jwt
 from jwt import ExpiredSignatureError, InvalidSignatureError
 
 from yajwt.jwt_exceptions import JwtKeyNotFound
-from yajwt.jwt_keys_manager import JwtKeysManager
+from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 from yajwt.entities.jwt_key import JwtKey
 from yajwt.entities.jwt_token import JwtToken
 

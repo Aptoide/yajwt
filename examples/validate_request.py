@@ -1,12 +1,12 @@
 import os
 
-from yajwt.jwt_keys_manager import JwtKeysManager
 from yajwt.jwt_requests_validator import JwtRequestsValidator
+from yajwt.keys_manager.jwt_keys_directory_manager import JwtKeysDirectoryManager
 
 if __name__ == "__main__":
     # set up your public/private keys directory
     keys_path = os.path.join(os.getcwd(), "examples", "keys")
-    jwt_keys_manager = JwtKeysManager(keys_path)
+    jwt_keys_manager = JwtKeysDirectoryManager(keys_path)
     jwt_validator = JwtRequestsValidator(jwt_keys_manager)
 
     # validate needs "iss" on payload

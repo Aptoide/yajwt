@@ -1,12 +1,13 @@
 import os
 import unittest
 
-from yajwt.jwt_exceptions import JwtKeyNotFound
 from yajwt.entities.jwt_key import JwtKeyType
-from yajwt.jwt_keys_manager import JwtKeysManager
+from yajwt.jwt_exceptions import JwtKeyNotFound
+from yajwt.keys_manager.jwt_keys_directory_manager import JwtKeysDirectoryManager
+from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 
 
-class TestJwtKeysManager(unittest.TestCase):
+class TestJwtKeysDirectoryManager(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.jwt_keys_manager: JwtKeysManager = None
@@ -14,7 +15,7 @@ class TestJwtKeysManager(unittest.TestCase):
 
     def setUp(self) -> None:
         keys_path = os.path.join(os.getcwd(), "examples", "keys")
-        self.jwt_keys_manager = JwtKeysManager(keys_path)
+        self.jwt_keys_manager = JwtKeysDirectoryManager(keys_path)
 
     def test_get_available_private_key(self):
         jwt_key = self.jwt_keys_manager.get_private_key(self.team_example)
