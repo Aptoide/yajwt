@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-PyJWT = "==1.7.1"
+PyJWT = "==2.0.0"
 cryptography = "==3.3.1"
-requests = "==2.25.0"
+requests = "==2.25.1"
 dataclasses = "==0.8"
 dataclasses-json = "==0.5.2"
 pre-commit = "==2.9.3"
