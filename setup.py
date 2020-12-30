@@ -1,7 +1,7 @@
 """
 # Upload Package: https://pypi.org/project/yajwt/
 python3 setup.py sdist bdist_wheel
-twine upload dist/yajwt-0.0.5*
+twine upload dist/yajwt-0.0.6*
 """
 import setuptools
 
@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="yajwt",
-    version="0.0.5",
+    version="0.0.6",
     author="Nuno Nelas",
     author_email="nuno.nelas@icloud.com",
     description="Yet Another JWT wrapper for Python",

@@ -1,12 +1,12 @@
 import logging
 
 import jwt
-from jwt import ExpiredSignatureError, InvalidSignatureError
+from jwt import InvalidTokenError
 
-from yajwt.jwt_exceptions import JwtKeyNotFound
-from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 from yajwt.entities.jwt_key import JwtKey
 from yajwt.entities.jwt_token import JwtToken
+from yajwt.jwt_exceptions import JwtKeyNotFound
+from yajwt.keys_manager.jwt_keys_manager import JwtKeysManager
 
 
 class JwtRequestsValidator:
@@ -18,21 +18,22 @@ class JwtRequestsValidator:
         payload = self.__get_payload(jwt_token)
         team_name = payload.get("iss")
         if team_name is None:
-            self.__logger.error("Unable to get team_name from JWT token.")
-            return JwtToken(False)
+            error_message = "Unable to get team_name from JWT token."
+            self.__logger.error(error_message)
+            return JwtToken(False, error_message=error_message)
 
         return self.validate_user(jwt_token, team_name)
 
     def __get_payload(self, jwt_token: str) -> dict:
-        return jwt.decode(jwt_token, verify=False)
+        return jwt.decode(jwt_token, options={"verify_signature": False})
 
     def __validate(self, jwt_token: str, jwt_key: JwtKey) -> JwtToken:
         try:
             jwt.decode(jwt_token, jwt_key.key, algorithms=jwt_key.algorithm)
             return JwtToken(True, self.__get_payload(jwt_token))
-        except (ExpiredSignatureError, InvalidSignatureError) as e:
+        except InvalidTokenError as e:
             self.__logger.error("Unable to verify %s token %s", jwt_key.team, str(e))
-            return JwtToken(False)
+            return JwtToken(False, error_message=str(e))
 
     def validate_user(self, jwt_token: str, team_name: str) -> JwtToken:
         try:
@@ -40,4 +41,4 @@ class JwtRequestsValidator:
             return self.__validate(jwt_token, jwt_key)
         except JwtKeyNotFound as e:
             self.__logger.error(str(e))
-            return JwtToken(False)
+            return JwtToken(False, error_message=str(e))

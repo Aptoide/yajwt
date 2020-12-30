@@ -7,3 +7,4 @@ from dataclasses import dataclass
 class JwtToken:
     valid: bool
     payload: Optional[dict] = None
+    error_message: Optional[str] = None
