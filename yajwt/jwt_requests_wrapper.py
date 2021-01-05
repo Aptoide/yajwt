@@ -78,11 +78,11 @@ class JwtRequestsWrapper:
 
     def __build_jwt_header(self, team: str) -> dict:
         jwt_key = self.__jwt_keys_manager.get_private_key(team)
-        token = self.__encode(jwt_key)
+        token = self.__encode(jwt_key).decode("utf-8")
         self.__logger.info("Using JWT token: '%s'", token)
         return {"Authorization": "Bearer " + token}
 
-    def __encode(self, jwt_key: JwtKey) -> str:
+    def __encode(self, jwt_key: JwtKey) -> bytes:
         payload = jwt_key.payload
         payload["exp"] = int(time() + self.__expiration_time)
         return encode(payload, jwt_key.key, algorithm=jwt_key.algorithm)

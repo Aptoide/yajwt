@@ -25,7 +25,7 @@ class JwtRequestsValidator:
         return self.validate_user(jwt_token, team_name)
 
     def __get_payload(self, jwt_token: str) -> dict:
-        return jwt.decode(jwt_token, options={"verify_signature": False})
+        return jwt.decode(jwt_token, verify=False)
 
     def __validate(self, jwt_token: str, jwt_key: JwtKey) -> JwtToken:
         try:
