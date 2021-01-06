@@ -23,7 +23,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=required,
     extras_require={
-        ':python_version == "3.6': [
+        ":python_version == '3.6'": [
             "dataclasses>=0.7",
         ],
     },
