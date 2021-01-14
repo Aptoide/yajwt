@@ -11,14 +11,14 @@ class TestJwtKeysMemoryManager(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.jwt_keys_manager: JwtKeysManager = None
-        self.team_example = "testing-user"
 
     def setUp(self) -> None:
         self.jwt_keys_manager = JwtKeysMemoryManager(TESTING_KEYS)
 
     def test_get_available_private_key(self):
-        jwt_key = self.jwt_keys_manager.get_private_key(self.team_example)
-        self.assertEqual(self.team_example, jwt_key.team)
+        team_example_private = "testing-private-user"
+        jwt_key = self.jwt_keys_manager.get_private_key(team_example_private)
+        self.assertEqual(team_example_private, jwt_key.team)
         self.assertEqual(JwtKeyType.PRIVATE_KEY, jwt_key.key_type)
 
     def test_get_not_found_private_key(self):
@@ -30,8 +30,9 @@ class TestJwtKeysMemoryManager(unittest.TestCase):
         )
 
     def test_get_available_public_key(self):
-        jwt_key = self.jwt_keys_manager.get_public_key(self.team_example)
-        self.assertEqual(self.team_example, jwt_key.team)
+        team_example_public = "testing-public-user"
+        jwt_key = self.jwt_keys_manager.get_public_key(team_example_public)
+        self.assertEqual(team_example_public, jwt_key.team)
         self.assertEqual(JwtKeyType.PUBLIC_KEY, jwt_key.key_type)
 
     def test_get_not_found_public_key(self):
