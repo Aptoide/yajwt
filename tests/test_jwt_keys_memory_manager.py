@@ -26,7 +26,7 @@ class TestJwtKeysMemoryManager(unittest.TestCase):
         with self.assertRaises(JwtKeyNotFound) as e:
             _ = self.jwt_keys_manager.get_private_key(not_found_team)
         self.assertEqual(
-            str(e.exception), "JwtKey not found for team '{}'".format(not_found_team)
+            str(e.exception), f"JwtKey not found for team '{not_found_team}'"
         )
 
     def test_get_available_public_key(self):
@@ -40,5 +40,5 @@ class TestJwtKeysMemoryManager(unittest.TestCase):
         with self.assertRaises(JwtKeyNotFound) as e:
             _ = self.jwt_keys_manager.get_public_key(not_found_team)
         self.assertEqual(
-            str(e.exception), "JwtKey not found for team '{}'".format(not_found_team)
+            str(e.exception), f"JwtKey not found for team '{not_found_team}'"
         )

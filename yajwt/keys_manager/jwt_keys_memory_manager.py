@@ -13,7 +13,7 @@ class JwtKeysMemoryManager(JwtKeysManager):
             team not in self.__jwt_keys
             or self.__jwt_keys[team].key_type is not JwtKeyType.PRIVATE_KEY
         ):
-            raise JwtKeyNotFound("JwtKey not found for team '{}'".format(team))
+            raise JwtKeyNotFound(f"JwtKey not found for team '{team}'")
         return self.__jwt_keys[team]
 
     def get_public_key(self, team: str) -> JwtKey:
@@ -21,5 +21,5 @@ class JwtKeysMemoryManager(JwtKeysManager):
             team not in self.__jwt_keys
             or self.__jwt_keys[team].key_type is not JwtKeyType.PUBLIC_KEY
         ):
-            raise JwtKeyNotFound("JwtKey not found for team '{}'".format(team))
+            raise JwtKeyNotFound(f"JwtKey not found for team '{team}'")
         return self.__jwt_keys[team]
