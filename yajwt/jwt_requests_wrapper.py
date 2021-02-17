@@ -20,11 +20,12 @@ class JwtRequestsWrapper:
         jwt_keys_manager: JwtKeysManager,
         jwt_response_mapper: JwtResponseMapper,
         expiration_time: int,
+        logger: logging.Logger = logging.getLogger("yajwt"),
     ):
         self.__jwt_keys_manager = jwt_keys_manager
         self.__expiration_time = expiration_time
         self.__jwt_response_mapper = jwt_response_mapper
-        self.__logger = logging.getLogger("JwtRequestsWrapper")
+        self.__logger = logger
 
     # pylint: disable=too-many-arguments
     def get(

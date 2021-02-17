@@ -8,8 +8,8 @@ from yajwt.entities.jwt_response import JwtResponse
 
 
 class JwtResponseMapper:
-    def __init__(self):
-        self.__logger = logging.getLogger("JwtResponseMapper")
+    def __init__(self, logger: logging.Logger = logging.getLogger("yajwt")):
+        self.__logger = logger
 
     def map(self, response: requests.Response) -> JwtResponse:
         if re.search(r"20\d", str(response.status_code)):

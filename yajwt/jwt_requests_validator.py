@@ -1,4 +1,3 @@
-
 import jwt
 from jwt import InvalidTokenError
 
@@ -28,7 +27,8 @@ class JwtRequestsValidator:
         try:
             jwt.decode(jwt_token, jwt_key.key, algorithms=jwt_key.algorithm)
             return JwtToken(True, self.__get_payload(jwt_token))
-        except InvalidTokenError as e:
+        except (InvalidTokenError, ValueError) as e:
+            # ValueError will raise when a public key is not properly formatted
             return JwtToken(False, error_message=str(e))
 
     def validate_user(self, jwt_token: str, team_name: str) -> JwtToken:
